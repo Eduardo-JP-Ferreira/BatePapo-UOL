@@ -20,9 +20,10 @@ function entrada(){
 console.log("deu certo");
 function alerta(resposta){
     console.log("ok");
-    let ConfirmaUsuarioOnline = setInterval(InformaServidor, 5000);
+    let ConfirmaUsuarioOnline = setInterval(informaServidor, 5000);
+    let AtualizarChat = setInterval(buscarMensagens, 3000);
 }
-function InformaServidor(){
+function informaServidor(){
     const informaNomeParaServidor = axios.post('https://mock-api.driven.com.br/api/v6/uol/status',usuario);
     informaNomeParaServidor.then(usuarioOnline);
 
@@ -62,22 +63,44 @@ function processarResposta(resposta) {
     const listaMensagens = document.querySelector('ul');
     listaMensagens.innerHTML = '';
     for(let i=0; i<guardaMensagem.length; i++){
-        if(i==99){
-            let template = `
-            <li class="ultimo">
-                ${guardaMensagem[i].time} ${guardaMensagem[i].from} para ${guardaMensagem[i].to}: ${guardaMensagem[i].text}
-            </li>
-        `;
-            listaMensagens.innerHTML += template; 
+        if(guardaMensagem[i].type == "status"){
+            if(i==99){
+                let template = `
+                <li data-test="message" class="ultimo status">
+                    (${guardaMensagem[i].time}) ${guardaMensagem[i].from} para ${guardaMensagem[i].to}: ${guardaMensagem[i].text}
+                </li>
+            `;
+                listaMensagens.innerHTML += template; 
+            }
+            else{
+                let template = `
+                <li data-test="message" class="status">
+                    (${guardaMensagem[i].time }) ${guardaMensagem[i].from } para ${guardaMensagem[i].to}: ${guardaMensagem[i].text}
+                </li>
+            `;
+                listaMensagens.innerHTML += template;
+            }
+
         }
         else{
-            let template = `
-            <li>
-                ${guardaMensagem[i].time} ${guardaMensagem[i].from} para ${guardaMensagem[i].to}: ${guardaMensagem[i].text}
-            </li>
-        `;
-            listaMensagens.innerHTML += template;
+            if(i==99){
+                let template = `
+                <li data-test="message" class="ultimo msg">
+                    (${guardaMensagem[i].time}) ${guardaMensagem[i].from} para ${guardaMensagem[i].to}: ${guardaMensagem[i].text}
+                </li>
+            `;
+                listaMensagens.innerHTML += template; 
+            }
+            else{
+                let template = `
+                <li data-test="message" class="msg">
+                    (${guardaMensagem[i].time }) ${guardaMensagem[i].from } para ${guardaMensagem[i].to}: ${guardaMensagem[i].text}
+                </li>
+            `;
+                listaMensagens.innerHTML += template;
+            }
         }
+
     }
     const scrol = document.querySelector('.ultimo');
     scrol.scrollIntoView();
