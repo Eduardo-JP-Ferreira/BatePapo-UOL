@@ -64,7 +64,7 @@ function processarResposta(resposta) {
         if(guardaMensagem[i].type == "private_message"&&(guardaMensagem[i].from == usuario.name || guardaMensagem[i].to == usuario.name)){
             if(i==99){
                 let template = `
-                <li data-test="message" class="ultimo status">
+                <li data-test="message" class="ultimo private">
                     (${guardaMensagem[i].time}) ${guardaMensagem[i].from} para ${guardaMensagem[i].to}: ${guardaMensagem[i].text}
                 </li>
             `;
@@ -72,7 +72,7 @@ function processarResposta(resposta) {
             }
             else{
                 let template = `
-                <li data-test="message" class="status">
+                <li data-test="message" class="private">
                     (${guardaMensagem[i].time }) ${guardaMensagem[i].from } para ${guardaMensagem[i].to}: ${guardaMensagem[i].text}
                 </li>
             `;
