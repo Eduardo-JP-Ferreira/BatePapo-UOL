@@ -31,6 +31,19 @@
     width: 375px;
     height: 500px;
     background-color: lightcoral;
+}
+ul{
+    margin-top: 106px;
+    display: flex;
+    flex-direction: column;
+}
+li{
+    display: flex;
+    width: 375px;
+    height: 40px;
+    align-items: center;
+    background-color: lightslategray;
+    margin-bottom: 4px;
 
 }
 .bottom{
@@ -52,4 +65,7 @@
 }
 .bottom input{
     margin-left: 17px;
+}
+#clicavel{
+    cursor: pointer;
 }

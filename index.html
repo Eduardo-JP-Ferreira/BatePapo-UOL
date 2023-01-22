@@ -16,15 +16,20 @@
         </div>
         <div class="containerConteudo">
             <div class="conteudo">
-
+                <ul>
+                    <li>ola</li>
+                    <li>mundo</li>
+                </ul>
             </div>
         </div>
         <div class="bottom">
-            <div><input type="text" size="35" value="" placeholder="Escreva aqui..."></div>
-            <div><ion-icon name="paper-plane-outline"></ion-icon></div>
+            <div><input class="campoMensagem" type="text" size="35" placeholder="Escreva aqui..."></div>
+            <div id="clicavel" onclick="enviarMensagem()"><ion-icon name="paper-plane-outline"></ion-icon></div>
         </div>
+        
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
     <script src="script.js"> </script>
 </body>
