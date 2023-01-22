@@ -17,9 +17,7 @@ function entrada(){
     request.catch(entrada);
     
 }
-console.log("deu certo");
 function alerta(resposta){
-    console.log("ok");
     let ConfirmaUsuarioOnline = setInterval(informaServidor, 5000);
     let AtualizarChat = setInterval(buscarMensagens, 3000);
 }
@@ -63,7 +61,8 @@ function processarResposta(resposta) {
     const listaMensagens = document.querySelector('ul');
     listaMensagens.innerHTML = '';
     for(let i=0; i<guardaMensagem.length; i++){
-        if(guardaMensagem[i].type == "status"){
+        if(guardaMensagem[i].type == "private_message"){}
+        else if(guardaMensagem[i].type == "status"){
             if(i==99){
                 let template = `
                 <li data-test="message" class="ultimo status">
@@ -82,7 +81,7 @@ function processarResposta(resposta) {
             }
 
         }
-        else{
+        else if(guardaMensagem[i].type == "message"){
             if(i==99){
                 let template = `
                 <li data-test="message" class="ultimo msg">
