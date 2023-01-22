@@ -1,10 +1,10 @@
 let constante = 0;
 let nomeUsuario;
 let usuario ={};
+let guardaMensagem={};
 
-alert("Enviei");
 entrada();
-
+buscarMensagens()
 function entrada(){
     nomeUsuario = prompt("Digite o nome do Usuário:");
     
@@ -47,16 +47,41 @@ function enviarMensagem(){
 	    type: "message"
     }
     const enviaMensagemServidor = axios.post('https://mock-api.driven.com.br/api/v6/uol/messages', mensagem);
-    enviaMensagemServidor.then(verResposta);
+    enviaMensagemServidor.then(buscarMensagens);
     enviaMensagemServidor.catch(erroMensagem);
 }
-function verResposta(){
+function buscarMensagens(){
     const respostaMensagemEnviada = axios.get('https://mock-api.driven.com.br/api/v6/uol/messages');
     respostaMensagemEnviada.then(processarResposta);
-    
+    respostaMensagemEnviada.catch(erroMensagem);
 }
 function processarResposta(resposta) {
-	console.log(resposta.data);
+    console.log(resposta.data);
+    guardaMensagem={};
+    guardaMensagem = resposta.data;
+    const listaMensagens = document.querySelector('ul');
+    listaMensagens.innerHTML = '';
+    for(let i=0; i<guardaMensagem.length; i++){
+        if(i==99){
+            let template = `
+            <li class="ultimo">
+                ${guardaMensagem[i].time} ${guardaMensagem[i].from} para ${guardaMensagem[i].to}: ${guardaMensagem[i].text}
+            </li>
+        `;
+            listaMensagens.innerHTML += template; 
+        }
+        else{
+            let template = `
+            <li>
+                ${guardaMensagem[i].time} ${guardaMensagem[i].from} para ${guardaMensagem[i].to}: ${guardaMensagem[i].text}
+            </li>
+        `;
+            listaMensagens.innerHTML += template;
+        }
+    }
+    const scrol = document.querySelector('.ultimo');
+    scrol.scrollIntoView();
+
 }
 function erroMensagem(){
     alert("Deu erro carai");

@@ -1,6 +1,7 @@
 
 .containerTotal{
     width: 375px;
+    height: 587px;
     position: relative;
 }
 .topo img{
@@ -29,8 +30,9 @@
     display: flex;
     justify-content: space-between;
     width: 375px;
-    height: 500px;
+    height: 507px;
     background-color: lightcoral;
+    overflow-y: scroll;
 }
 ul{
     margin-top: 106px;
