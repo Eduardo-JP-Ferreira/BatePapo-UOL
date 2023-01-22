@@ -91,6 +91,9 @@ li{
 .msg{
     background-color: #FFFFFF;
 }
+.private{
+    background-color: #FFDEDE;
+}
 #clicavel{
     cursor: pointer;
 }
