@@ -12,11 +12,11 @@ function entrada(){
         name: `${nomeUsuario}`
     };
     const request = axios.post('https://mock-api.driven.com.br/api/v6/uol/participants', usuario);
-    request.then(alerta);
+    request.then(iniciaSistema);
     request.catch(erroGeral);
     
 }
-function alerta(resposta){
+function iniciaSistema(resposta){
     buscarMensagens()
     let ConfirmaUsuarioOnline = setInterval(informaServidor, 5000);
     let AtualizarChat = setInterval(buscarMensagens, 3000);
@@ -47,12 +47,12 @@ function enviarMensagem(){
     }
     const enviaMensagemServidor = axios.post('https://mock-api.driven.com.br/api/v6/uol/messages', mensagem);
     enviaMensagemServidor.then(buscarMensagens);
-    enviaMensagemServidor.catch(erroMensagem);
+    enviaMensagemServidor.catch(erroGeral);
 }
 function buscarMensagens(){
     const respostaMensagemEnviada = axios.get('https://mock-api.driven.com.br/api/v6/uol/messages');
     respostaMensagemEnviada.then(processarResposta);
-    respostaMensagemEnviada.catch(erroMensagem);
+    respostaMensagemEnviada.catch(erroGeral);
 }
 function processarResposta(resposta) {
     console.log(resposta.data);
@@ -123,12 +123,11 @@ function processarResposta(resposta) {
     scrol.scrollIntoView();
 
 }
-function erroMensagem(){
-    alert("Deu erro carai");
-}
+
 function erroGeral(erro){
     const statusCode = erro.response.status;
     if ( statusCode === 400){
+        window.location.reload();
         entrada();
     }
     else{
