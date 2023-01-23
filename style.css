@@ -20,7 +20,7 @@ b{
 }
 .topo img{
     width: 75px;
-    height: 53px;
+    height: 75px;
     margin-left: 22px;
 }
 .topo ion-icon{
@@ -50,6 +50,8 @@ b{
     height: 507px;
     background-color: #F3F3F3;
     overflow-y: scroll;
+    flex-wrap: wrap;
+    overflow-x: hidden;
     
 }
 ul{
@@ -59,10 +61,12 @@ ul{
 li{
     display: flex;
     width: 375px;
-    height: 40px;
+    min-height: 40px;
+    flex-wrap: wrap;
+    overflow-wrap: break-word;
     align-items: center;
     margin-bottom: 4px;
-
+  
 }
 .bottom{
     display: flex;
@@ -84,6 +88,7 @@ li{
 }
 .bottom input{
     margin-left: 17px;
+    border: none;
 }
 .status{
     background-color: #DCDCDC;
@@ -96,4 +101,7 @@ li{
 }
 #clicavel{
     cursor: pointer;
+}
+span{
+    color: #AAAAAA;
 }

@@ -34,10 +34,15 @@ function usuarioNaoOnline(){
     console.log("Usuário Offline");
     entrada();
 }
+let input = document.getElementById("input");
+input.addEventListener("keyup", function(event) {
+     if (event.keyCode === 13) {
+        event.preventDefault();
+         document.getElementById("clicavel").click();
+    }
+});
 function enviarMensagem(){
-    console.log("cliquei");
     const mensagemEnviada = document.querySelector('.campoMensagem').value;
-    console.log(mensagemEnviada);
     const mensagem = 
     {
         from: `${usuario.name}`,
@@ -46,8 +51,13 @@ function enviarMensagem(){
 	    type: "message"
     }
     const enviaMensagemServidor = axios.post('https://mock-api.driven.com.br/api/v6/uol/messages', mensagem);
-    enviaMensagemServidor.then(buscarMensagens);
+    enviaMensagemServidor.then(envioRealizado);
     enviaMensagemServidor.catch(erroGeral);
+}
+function envioRealizado(){
+    document.querySelector('.campoMensagem').value='';
+    buscarMensagens();
+    
 }
 function buscarMensagens(){
     const respostaMensagemEnviada = axios.get('https://mock-api.driven.com.br/api/v6/uol/messages');
@@ -55,7 +65,6 @@ function buscarMensagens(){
     respostaMensagemEnviada.catch(erroGeral);
 }
 function processarResposta(resposta) {
-    console.log(resposta.data);
     guardaMensagem={};
     guardaMensagem = resposta.data;
     const listaMensagens = document.querySelector('ul');
@@ -65,7 +74,7 @@ function processarResposta(resposta) {
             if(i==99){
                 let template = `
                 <li data-test="message" class="ultimo private">
-                    (${guardaMensagem[i].time}) ${guardaMensagem[i].from} para ${guardaMensagem[i].to}: ${guardaMensagem[i].text}
+                    <span>(${guardaMensagem[i].time})</span>&nbsp; <b>${guardaMensagem[i].from}</b>&nbsp; para &nbsp;<b>${guardaMensagem[i].to}</b>: ${guardaMensagem[i].text}
                 </li>
             `;
                 listaMensagens.innerHTML += template; 
@@ -73,7 +82,7 @@ function processarResposta(resposta) {
             else{
                 let template = `
                 <li data-test="message" class="private">
-                    (${guardaMensagem[i].time }) ${guardaMensagem[i].from } para ${guardaMensagem[i].to}: ${guardaMensagem[i].text}
+                    <span>(${guardaMensagem[i].time })</span>&nbsp; <b>${guardaMensagem[i].from }</b>&nbsp; para &nbsp;<b>${guardaMensagem[i].to}</b>: ${guardaMensagem[i].text}
                 </li>
             `;
                 listaMensagens.innerHTML += template;
@@ -83,7 +92,7 @@ function processarResposta(resposta) {
             if(i==99){
                 let template = `
                 <li data-test="message" class="ultimo status">
-                    (${guardaMensagem[i].time}) ${guardaMensagem[i].from} para ${guardaMensagem[i].to}: ${guardaMensagem[i].text}
+                    <span>(${guardaMensagem[i].time})</span>&nbsp; <b>${guardaMensagem[i].from}</b>&nbsp; ${guardaMensagem[i].text}
                 </li>
             `;
                 listaMensagens.innerHTML += template; 
@@ -91,7 +100,7 @@ function processarResposta(resposta) {
             else{
                 let template = `
                 <li data-test="message" class="status">
-                    (${guardaMensagem[i].time }) ${guardaMensagem[i].from } para ${guardaMensagem[i].to}: ${guardaMensagem[i].text}
+                    <span>(${guardaMensagem[i].time })</span>&nbsp; <b>${guardaMensagem[i].from}</b>&nbsp; ${guardaMensagem[i].text}
                 </li>
             `;
                 listaMensagens.innerHTML += template;
@@ -102,7 +111,7 @@ function processarResposta(resposta) {
             if(i==99){
                 let template = `
                 <li data-test="message" class="ultimo msg">
-                    (${guardaMensagem[i].time}) ${guardaMensagem[i].from} para ${guardaMensagem[i].to}: ${guardaMensagem[i].text}
+                    <span>(${guardaMensagem[i].time})</span>&nbsp; <b>${guardaMensagem[i].from}</b>&nbsp; para &nbsp;<b>${guardaMensagem[i].to}</b>: ${guardaMensagem[i].text}
                 </li>
             `;
                 listaMensagens.innerHTML += template; 
@@ -110,7 +119,7 @@ function processarResposta(resposta) {
             else{
                 let template = `
                 <li data-test="message" class="msg">
-                    (${guardaMensagem[i].time }) ${guardaMensagem[i].from } para ${guardaMensagem[i].to}: ${guardaMensagem[i].text}
+                    <span>(${guardaMensagem[i].time })</span>&nbsp; <b>${guardaMensagem[i].from}</b>&nbsp; para &nbsp;<b>${guardaMensagem[i].to}</b>: ${guardaMensagem[i].text}
                 </li>
             `;
                 listaMensagens.innerHTML += template;
