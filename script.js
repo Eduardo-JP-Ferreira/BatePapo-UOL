@@ -13,7 +13,7 @@ function entrada(){
     };
     const request = axios.post('https://mock-api.driven.com.br/api/v6/uol/participants', usuario);
     request.then(alerta);
-    request.catch(entrada);
+    request.catch(erroGeral);
     
 }
 function alerta(resposta){
@@ -125,4 +125,13 @@ function processarResposta(resposta) {
 }
 function erroMensagem(){
     alert("Deu erro carai");
+}
+function erroGeral(erro){
+    const statusCode = erro.response.status;
+    if ( statusCode === 400){
+        entrada();
+    }
+    else{
+        window.location.reload();
+    }
 }
